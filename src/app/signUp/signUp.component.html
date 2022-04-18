@@ -1,0 +1,69 @@
+<div class="container my-5 signup">
+  <form class=" w-75 mx-auto position-relative" autocomplete="off" [formGroup]="signUp" (ngSubmit)="signUpUser(signUp)">
+    <h2>Sing Up</h2>
+    <div class="row">
+      <div class="col-md-6 my-2">
+        <input type="text" class="form-control" formControlName="first_name" placeholder="Enter Your First Name"  [ngClass]="{ 'is-invalid': signUp.get('first_name')?.invalid && (signUp.get('first_name')?.touched || signUp.get('first_name')?.dirty) ,'is-valid':signUp.get('first_name')?.errors == null }">
+        <div *ngIf="signUp.get('first_name')?.invalid && (signUp.get('first_name')?.touched || signUp.get('first_name')?.dirty)" class="invalid-feedback ">
+          <div *ngIf="signUp.get('first_name')?.errors?.['required']"><li>First Name is required</li> </div>
+          <div *ngIf="signUp.get('first_name')?.errors?.['minlength']"><li>First Name is less than 3 character</li></div>
+          <div *ngIf="signUp.get('first_name')?.errors?.['pattern']"><li>First Name must be characters only</li></div>
+          <div *ngIf="signUp.get('first_name')?.errors?.['maxlength']"><li>First Name is less than 16 character</li></div>
+      </div>
+      </div>
+      <div class="col-md-6  my-2">
+        <input type="text" class="form-control" formControlName="last_name"  placeholder="Enter Your Last Name" [ngClass]="{ 'is-invalid': signUp.get('last_name')?.invalid && (signUp.get('last_name')?.touched || signUp.get('last_name')?.dirty) ,'is-valid':signUp.get('last_name')?.errors == null }">
+        <div *ngIf="signUp.get('last_name')?.invalid && (signUp.get('last_name')?.touched || signUp.get('last_name')?.dirty)" class="invalid-feedback">
+          <div *ngIf="signUp.get('last_name')?.errors?.['required']"><li>First Name is required</li> </div>
+          <div *ngIf="signUp.get('last_name')?.errors?.['minlength']"><li>First Name is less than 3 character</li></div>
+          <div *ngIf="signUp.get('last_name')?.errors?.['pattern']"><li>First Name must be characters only</li></div>
+          <div *ngIf="signUp.get('last_name')?.errors?.['maxlength']"><li>First Name is less than 16 character</li></div>
+      </div>
+      </div>
+    </div>
+    <div class="row mt-3 mb-2">
+      <div class="col-md-12 position-relative">
+        <span  [ngClass]="{'spinner ':signUp.get('email')?.pending}"></span>
+        <input type="text" class="form-control" formControlName="email" placeholder="Enter Your Email" [ngClass]="{ 'is-invalid': signUp.get('email')?.invalid && (signUp.get('email')?.touched || signUp.get('email')?.dirty) ,'is-valid':signUp.get('email')?.errors == null && !signUp.get('email')?.pending }">
+        <div *ngIf="signUp.get('email')?.invalid && (signUp.get('email')?.touched || signUp.get('email')?.dirty)" class="invalid-feedback">
+          <div *ngIf="signUp.get('email')?.errors?.['required']"><li>email is required</li> </div>
+          <div *ngIf="signUp.get('email')?.errors?.['pattern']"><li>Email is Not Valid</li></div>
+          <div *ngIf="signUp.get('email')?.errors?.['emailExist']"><li>This Email {{signUp.get('email')?.value}} Already exists</li></div>
+      </div>
+    </div>
+    </div>
+    <div class="row mt-4 mb-2">
+      <div class="col-md-12">
+        <input type="text" class="form-control" formControlName="age" autocomplete="age" placeholder="Enter Your Age" [ngClass]="{ 'is-invalid': signUp.get('age')?.invalid && (signUp.get('age')?.touched || signUp.get('age')?.dirty) ,'is-valid':signUp.get('age')?.errors == null }">
+        <div *ngIf="signUp.get('age')?.invalid && (signUp.get('age')?.touched || signUp.get('age')?.dirty)" class="invalid-feedback">
+          <div *ngIf="signUp.get('age')?.errors?.['required']"><li>age is required</li> </div>
+          <div *ngIf="signUp.get('age')?.errors?.['min']"><li>Your age is less than 16 old</li></div>
+          <div *ngIf="signUp.get('age')?.errors?.['max']"><li>Your age is less than 80 old</li></div>
+          <div *ngIf="signUp.get('age')?.errors?.['pattern']"><li>your age is invalid</li></div>
+      </div>
+      </div>
+      </div>
+    <div class="row my-3">
+      <div class="col-md-6 my-2">
+        <input type="password" class="form-control" formControlName="password" autocomplete="new-password" placeholder="Enter Your Password" [ngClass]="{ 'is-invalid': signUp.get('password')?.invalid && (signUp.get('password')?.touched || signUp.get('password')?.dirty) ,'is-valid':signUp.get('password')?.errors == null }">
+        <div *ngIf="signUp.get('password')?.invalid && (signUp.get('password')?.touched || signUp.get('password')?.dirty)" class="invalid-feedback">
+          <div *ngIf="signUp.get('password')?.errors?.['required']"><li>Password is required</li> </div>
+          <div *ngIf="signUp.get('password')?.errors?.['pattern']"><li>Minimum eight characters, at least one letter, one number and one special character.</li></div>
+      </div>
+      </div>
+      <div class="col-md-6 my-2">
+        <input type="password" class="form-control" formControlName="confirmPassword" autocomplete="new-password" placeholder="Enter Your Confirm Password" [ngClass]="{ 'is-invalid': signUp.get('confirmPassword')?.invalid && (signUp.get('confirmPassword')?.touched || signUp.get('confirmPassword')?.dirty) ,'is-valid':signUp.get('confirmPassword')?.errors == null }">
+        <div *ngIf="signUp.get('confirmPassword')?.invalid && (signUp.get('confirmPassword')?.touched || signUp.get('confirmPassword')?.dirty)" class="invalid-feedback">
+          <div *ngIf="signUp.get('confirmPassword')?.errors?.['required']"><li>Confirm Password is required</li> </div>
+          <div *ngIf="signUp.get('confirmPassword')?.errors?.['matching']"><li>Your Password doesn't match</li> </div>
+      </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <button type="submit" class="btn btn-primary py-2 px-5 position-relative" [ngClass]="{'disable': submitLoader || signUp.invalid || signUp.pending }" [disabled]="submitLoader || signUp.invalid || signUp.pending">Submit <span  [ngClass]="{'spinnerBtn':submitLoader}"></span> </button>
+      </div>
+    </div>
+  </form>
+</div>
+<app-footer></app-footer>

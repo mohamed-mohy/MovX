@@ -1,0 +1,19 @@
+<div class="container py-5">
+  <h2>Movies</h2>
+  <div class="row py-5 border-bottom">
+    <div class="col-lg-3 py-4 movie " *ngFor="let movie of movies.results">
+     <div class="position-relative h-100">
+      <div class="review "><i class="fas fa-star pe-1"></i><span class="fw-bold">{{movie.vote_average}}</span></div>
+      <a [routerLink]="['/details','movie',movie.id]">
+        <div class="poster ">
+          <img [src]="originalPath+movie.poster_path"  class="img-fluid shadow rounded h-100 ">
+          <h4 class="py-2 text-center">{{movie.title}}</h4>
+        </div>
+      </a>
+     </div>
+    </div>
+  </div>
+  <p-paginator [rows]="20" [totalRecords]="10000" (onPageChange)="paginate($event)" ></p-paginator>
+
+  <app-footer></app-footer>
+  <ngx-spinner *ngIf="loading" bdColor = "rgba(0, 0, 0, 0.8)" size = "large" color = "#1159b9" type = "ball-scale-multiple" [fullScreen] = "true"><p style="color: white" > Loading... </p></ngx-spinner>

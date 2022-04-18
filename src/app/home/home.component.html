@@ -1,0 +1,49 @@
+<app-slider></app-slider>
+<div class="container py-5">
+  <div class="row py-5 border-bottom">
+  <div class="info d-flex flex-column justify-content-center align-items-md-center align-items-lg-start col-lg-3 py-4">
+  <h3>  Trending Movies<br>
+    To Watch Right Now</h3>
+    <p>Trending Movies To Watch Right Now</p>
+    <a routerLink="/movies"><h6>Show More ..</h6></a>
+  </div>
+    <div class="col-lg-3 py-4 movie " *ngFor="let movie of movies">
+     <div class="position-relative h-100">
+      <div class="review "><i class="fas fa-star pe-1"></i><span class="fw-bold">{{movie.vote_average}}</span></div>
+      <a [routerLink]="['/details',movie.media_type,movie.id]">
+        <div class="poster ">
+          <img [src]="originalPath+movie.poster_path"  class="img-fluid shadow rounded h-100 ">
+          <h4 class="py-2 text-center">{{movie.title}}</h4>
+        </div>
+      </a>
+     </div>
+    </div>
+  </div>
+
+
+  <div class="row py-5">
+    <div class="info d-flex flex-column justify-content-center align-items-md-center align-items-lg-start col-lg-3 py-4">
+    <h3>  Trending TV<br>
+      To Watch Right Now</h3>
+      <p>Trending TV To Watch Right Now</p>
+      <a routerLink="/tv"><h6>Show More ..</h6></a>
+    </div>
+      <div class="col-lg-3 py-4 movie " *ngFor="let tv of tvs">
+       <div class="position-relative h-100">
+        <div class="review "><i class="fas fa-star pe-1"></i><span class="fw-bold">{{tv.vote_average}}</span></div>
+        <a [routerLink]="['/details',tv.media_type,tv.id]">
+          <div class="poster ">
+            <img [src]="originalPath+tv.poster_path"  class="img-fluid shadow rounded h-100 ">
+            <h4 class="py-2 text-center">{{tv.name}}</h4>
+          </div>
+        </a>
+       </div>
+      </div>
+    </div>
+
+
+</div>
+
+<app-footer></app-footer>
+
+<ngx-spinner *ngIf="loading" bdColor = "rgba(0, 0, 0, 0.8)" size = "large" color = "#1159b9" type = "ball-scale-multiple" [fullScreen] = "true"><p style="color: white" > Loading... </p></ngx-spinner>

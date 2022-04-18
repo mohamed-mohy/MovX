@@ -1,0 +1,48 @@
+@import url(../../styles.scss);
+
+input,
+textarea {
+  border: #404042 1px solid;
+}
+
+@keyframes spinner {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spinner::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 3%;
+  width: 20px;
+  height: 20px;
+  margin-top: -10px;
+  margin-left: -10px;
+  border-radius: 50%;
+  border: 2px solid #edf1f5;
+  border-top-color: #696868;
+  animation: spinner 0.8s linear infinite;
+}
+
+@keyframes spinner {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spinnerBtn::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 15%;
+  width: 20px;
+  height: 20px;
+  margin-top: -10px;
+  margin-left: -10px;
+  border-radius: 50%;
+  border: 2px solid #edf1f5;
+  border-top-color: #696868;
+  animation: spinner 0.8s linear infinite;
+}

@@ -1,0 +1,43 @@
+
+    <swiper [config]="config"
+    [centeredSlides]="true"
+    [autoplay]="{
+      delay: 5000,
+      disableOnInteraction: false
+    }"
+    [speed]="1000" class="">
+
+      <ng-template  *ngFor="let movie of movies" swiperSlide>
+      <div class="d-flex justify-content-end slider ">
+          <img [src]="originalPath+movie.backdrop_path"  class="img-fluid  w-75" alt="">
+        </div>
+            <div class="details">
+              <a [routerLink]="['/details',movie.media_type,movie.id]" ><h2 class="h1">{{movie.media_type == 'movie' ?movie.original_title :movie.name}}</h2></a>
+
+              <p>{{movie.overview}}</p>
+              <div class="d-flex justify-content-start align-items-center flex-wrap">
+                <h6 class="text-start">Genres :</h6>
+                <ng-container *ngFor="let genre of movie.genre_ids" >
+
+                    <ng-container *ngFor="let genreId of genres">
+                      <div class="m-1  tag p-1 rounded" *ngIf="genreId.id == genre">
+                        {{genreId.id == genre ? genreId.name:""}}
+
+                      </div>
+                    </ng-container>
+              </ng-container>
+              <h6 class="w-100 text-start py-1">Release Date: <span class="fw-light">{{movie.release_date== null ?movie.first_air_date:movie.release_date}}</span></h6>
+              <div class="review"><i class="fas fa-star pe-1"></i>  <span class="h5">{{movie.vote_average}}</span>
+                <span class="text-muted"> / 10</span>
+                <span class=" px-2 fw-light"> |</span>
+                <span>{{movie.vote_count}} reviews</span>
+
+              </div>
+              </div>
+          </div>
+
+
+
+      </ng-template>
+    </swiper>
+

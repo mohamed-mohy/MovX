@@ -1,0 +1,45 @@
+@import '../../styles.scss';
+.navbar-brand
+{
+  width: 10%;
+  font-weight: 300;
+  font-size: 2rem;
+  margin: 0 !important;
+    padding: 0 !important;
+  img
+  {
+    width: 35%;
+  }
+}
+input,textarea
+{
+  border: #404042 1px solid ;
+}
+
+
+
+@media screen and (min-width:300px) and(max-width:499.99px) {
+  .navbar-brand img
+  {
+    width: 90%;
+  }
+}
+
+@media screen and (min-width:500px) and(max-width:749.99px) {
+  .navbar-brand img
+  {
+    width: 80%;
+  }
+}
+@media screen and (min-width:750px) and(max-width:999.99px) {
+  .navbar-brand img
+  {
+    width: 50%;
+  }
+}
+@media screen and (min-width:1000px) and(max-width:1200px) {
+  .navbar-brand img
+  {
+    width: 40%;
+  }
+}

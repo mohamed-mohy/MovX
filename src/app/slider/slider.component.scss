@@ -1,0 +1,148 @@
+
+@import '../../styles.scss';
+
+.slider
+{
+  height: 100%;
+  min-height: 600px;
+  &::before
+  {
+    content: '';
+    position:absolute;
+    top:0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 75%;
+    background:linear-gradient(to right,
+    #19191a 10%,
+    rgba(25,25,26,1) 20%,
+    rgba(25,25,26,1) 25%,
+    rgba(25,25,26,1) 35%,
+    rgba(25,25,26,95) 40%,
+    rgba(25,25,26,.92) 45%,
+    rgba(25,25,26,.91) 50%,
+    rgba(25,25,26,.90) 55%,
+    rgba(25,25,26,.82) 60%,
+    rgba(25,25,26,.80) 65%,
+    rgba(25,25,26,.70) 70%,
+    rgba(25,25,26,.45) 75%,
+    rgba(25,25,26,.40) 80%,
+    rgba(25,25,26,.30) 85%,
+    rgba(25,25,26,.20) 90%,
+    rgba(25,25,26,.10) 95%,
+    rgba(25,25,26,0) 100%);
+
+    z-index: 2;
+  }
+}
+
+.details
+{
+  position: absolute;
+  top:20%;
+  left: 0;
+  right: 0;
+  text-align: left;
+  justify-content: flex-start;
+  width: 45%;
+  min-width: 500px;
+  max-width: 800px;
+  max-height: 100%;
+  padding: 16px 32px 64px 40px;
+  flex-direction: column;
+  display: flex;
+  z-index: 9999;
+}
+p{
+  font-size: .9rem;
+}
+.tag
+{
+  background-color: $bgColor2;
+  transition: .5s;
+  &:hover
+{
+    color: $mainColor;
+  }
+}
+.fa-star
+{
+  color: rgb(228, 167, 0);
+    font-size: 1.2rem;
+}
+.h1
+{
+  transition: .5s;
+  color: white !important;
+  &:hover{
+    color: $secondColor !important;
+  }
+}
+.h5
+{
+  color: white !important;
+}
+
+
+@media screen and (min-width:300px) and(max-width:950.99px) {
+  .details
+{
+  position: relative;
+  width: 100%;
+  min-width: 100%;
+  max-width: 100%;
+  height:min-content;
+  text-align: left;
+  justify-content: flex-start;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 20px;
+  z-index: 99;
+
+
+}
+.swiper-slide
+{
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  justify-items: center !important;
+
+}
+
+p{
+  font-size: .8rem;
+}
+.slider
+{
+  min-height: unset;
+img{
+  width: 100% !important;
+  height: 100%;
+}
+  &::before
+  {
+    content: '';
+    background:linear-gradient(360deg,
+    #19191a 10%,
+    rgba(25,25,26,1) 20%,
+    rgba(25,25,26,1) 25%,
+    rgba(25,25,26,1) 35%,
+    rgba(25,25,26,95) 40%,
+    rgba(25,25,26,1) 45%,
+    rgba(25,25,26,.9) 50%,
+    rgba(25,25,26,.8) 55%,
+    rgba(25,25,26,.82) 60%,
+    rgba(25,25,26,.80) 65%,
+    rgba(25,25,26,.70) 70%,
+    rgba(25,25,26,.45) 75%,
+    rgba(25,25,26,.40) 80%,
+    rgba(25,25,26,.30) 85%,
+    rgba(25,25,26,.20) 90%,
+    rgba(25,25,26,.10) 95%,
+    rgba(25,25,26,0) 100%);
+    width: 100%;
+  }
+}
+}

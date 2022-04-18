@@ -1,0 +1,270 @@
+<!-- Movie And TV details -->
+<div *ngIf="typeChanges !='person'">
+
+  <div class="slider" *ngIf="details.backdrop_path != undefined" [ngStyle]="{background: 'url('+originalPath+details.backdrop_path+')'}">
+
+  </div>
+
+  <div class="container">
+    <div class="details row mb-5">
+      <div class="col-md-4 d-none d-sm-block main-img" (click)="playVideo(details.videos?.results[0].key)">
+        <div class="main-img"><img *ngIf="details.poster_path != undefined" [src]="originalPath+details.poster_path" class="img-fluid shadow rounded" alt="">
+          <div class="main-img-hover">
+            <i class="fas fa-play"></i>
+          </div>
+
+        </div>
+
+      </div>
+      <div class="col-md-8">
+      <a><h2 class="h1">{{typeChanges == 'movie' ? details.title :details.name}}</h2></a>
+
+      <p>{{details.overview}}</p>
+      <div class="d-flex justify-content-start align-items-center flex-wrap">
+        <h6 class="text-start">Genres :</h6>
+              <div class="m-1  tag p-1 rounded" *ngFor="let genre of details.genres">
+                {{genre.name}}
+              </div>
+      <h6 class="w-100 text-start py-1">Release Date: <span class="fw-light">{{details.release_date== null ?details.first_air_date:details.release_date}}</span></h6>
+      <div ><i class="fas fa-star pe-1"></i>  <span class="h5">{{details.vote_average}}</span>
+        <span class="text-muted"> / 10</span>
+        <span class=" px-2 fw-light"> |</span>
+        <span>{{details.vote_count}} reviews</span>
+      </div>
+      </div>
+      <div class="d-flex pt-2 flex-column">
+        <span *ngIf="details.runtime"  class="py-2"><span class="fw-bold">Runtime: </span> {{details.runtime | myTime }}</span>
+        <span *ngIf="details.budget" class="py-2"><span class="fw-bold">Budget: </span> {{details.budget<=0?'Unknown':details.budget | currency:'USD':'symbol':'.0' }}</span>
+        <span *ngIf="details.revenue" class="py-2"><span class="fw-bold">Revenue: </span> {{details.revenue | currency:'USD':'symbol':'.0' }}</span>
+        <span class="py-2"><span class="fw-bold">Status: </span> {{details.status }}</span>
+        <span class="py-2"><span class="fw-bold">Languages: </span> <span *ngFor="let language of details.spoken_languages;">
+          {{language.english_name}},
+        </span></span>
+      </div>
+  </div>
+  </div>
+  <mat-tab-group mat-align-tabs="center" animationDuration="0ms">
+    <mat-tab  label="Credits">
+      <div>
+      <swiper
+      [config]="config"
+    [slidesPerView]="3"
+    [spaceBetween]="30"
+    [navigation]="true"
+    class="py-5"
+  >
+    <ng-template *ngFor="let item of details.credits?.cast"   swiperSlide>
+
+        <div class="credits"  [routerLink]="['/details','person',item.id]">
+          <img [src]="originalPath+item.profile_path" *ngIf="item.profile_path != null && item.profile_path != undefined"  class="w-100 shadow rounded">
+          <img src="../../assets/images/not-avail.png" *ngIf="item.profile_path == null && item.profile_path == undefined"  class="w-100 shadow rounded">
+          <h4 class="py-2">{{item.name}}</h4>
+          <h5 *ngIf="item.character">({{item.character}})</h5>
+        </div>
+
+    </ng-template>
+  </swiper>
+    </div>
+  </mat-tab>
+    <mat-tab label="Videos">
+      <div *ngIf="details.videos?.results">
+        <swiper
+        [config]="config1"
+      [slidesPerView]="3"
+      [spaceBetween]="30"
+      [navigation]="true"
+      class="py-5"
+    >
+      <ng-template *ngFor="let video of details.videos?.results" swiperSlide>
+
+          <div >
+          <div class="credits "   (click)="playVideo(video.key)">
+          <div class="position-relative main-img"> <img src="https://img.youtube.com/vi/{{video.key}}/hqdefault.jpg"   class="w-100 shadow rounded position-relative">    <div class=" main-img-hover ">
+            <i class="fas fa-play"></i>
+          </div>  </div>
+
+          </div>
+
+          </div>
+          <h6 class="py-2">{{video.name}}</h6>
+
+
+      </ng-template>
+    </swiper>
+      </div>
+      <div *ngIf="!details.videos?.results[0]" class="h2 pb-5"> Videos Not Available</div>
+    </mat-tab>
+
+    <mat-tab label="Images">
+
+  <div *ngIf="details.images?.backdrops">
+        <swiper
+        [config]="config1"
+      [slidesPerView]="3"
+      [spaceBetween]="30"
+      [navigation]="true"
+      class="py-5"
+    >
+      <ng-template *ngFor="let image of details.images?.backdrops" swiperSlide>
+
+          <div  class="credits" (click)="viewImage(image.file_path)">
+            <img [src]="originalPath+image.file_path"   class="w-100 shadow rounded">
+
+          </div>
+
+
+      </ng-template>
+    </swiper>
+      </div>
+      <div *ngIf="!details.images?.backdrops[0]" class="h2 py-3"> Images Not Available</div>
+
+    </mat-tab>
+  </mat-tab-group>
+
+
+  <div class="similar">
+    <h3>Recommended {{typeChanges == 'movie'?'Movie':'TV'}}</h3>
+
+    <div>
+      <swiper
+      [config]="config"
+    [slidesPerView]="3"
+    [spaceBetween]="30"
+    [navigation]="true"
+    class="py-5"
+  >
+    <ng-template class="similar" *ngFor="let similar of details.similar?.results" swiperSlide>
+
+        <div  class="credits " [routerLink]="['/details',typeChanges,similar.id]">
+          <div class="position-relative h-100">
+            <div class="review "><i class="fas fa-star pe-1"></i><span class="fw-bold">{{similar.vote_average | number:'1.1-1'}}</span></div>
+          <img [src]="originalPath+similar.poster_path"   class="w-100 shadow rounded">
+          <h4 class="py-2">{{typeChanges == 'movie' ? similar.title :similar.name}}</h4>
+        </div>
+        </div>
+
+
+    </ng-template>
+  </swiper>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<ng-template #viewImg>
+  <div class="d-flex flex-column align-items-end">
+    <span [mat-dialog-close]="true" class="btn-close btn-close-white text-end py-2 h4"></span>
+    <img [src]="originalPath+img" class="img-fluid w-100 shadow rounded ">
+  </div>
+</ng-template>
+      <ng-template #PlayVideo>
+
+        <div class="d-flex flex-column align-items-end">
+          <span [mat-dialog-close]="true" class="btn-close btn-close-white text-end py-2 h4"></span>
+          <youtube-player style="width: 80vw;height:100%" [videoId]="key"></youtube-player>
+        </div>
+      </ng-template>
+
+<!-- person details -->
+<div class="container py-5" *ngIf="typeChanges =='person'">
+  <div class="row imgPerson">
+    <div class="col-md-4">
+      <img [src]="originalPath+details.profile_path" *ngIf="details.profile_path != null && details.profile_path != undefined"  class="img-fluid shadow rounded">
+      <img src="../../assets/images/not-avail.png" *ngIf="details.profile_path == null && details.profile_path == undefined"  class="w-100 shadow rounded">
+    </div>
+    <div class="col-md-8 py-5">
+      <div class="Pdetails">
+        <h2 class="py-2">{{details.name}}</h2>
+        <p class="py-2">{{details.biography}}</p>
+        <h6 class="py-2"><span class="fw-bold" >Know For : </span>{{details.known_for_department}}</h6>
+        <h6 class="py-2" *ngIf="details.birthday"><span class="fw-bold" >born : </span>{{details.birthday}}</h6>
+        <h6 class="py-2" *ngIf="details.place_of_birth"><span class="fw-bold" >Place Of Birth : </span>{{details.place_of_birth}}</h6>
+        <h6 class="py-2" *ngIf="details.deathday"><span class="fw-bold" >Deathday : </span>{{details.deathday}}</h6>
+        <h6 class="py-2" *ngIf="details.homepage"><span class="fw-bold" >Homepage : </span> <a target="_blank" [href]="details.homepage">{{details.homepage}}</a> </h6>
+      </div>
+    </div>
+  </div>
+  <div class="pt-5">
+    <swiper
+    [config]="config"
+  [slidesPerView]="3"
+  [spaceBetween]="30"
+  [navigation]="true"
+  class="mySwiper"
+>
+  <ng-template *ngFor="let item of details.images?.profiles" swiperSlide>
+
+      <div class="credits">
+
+          <img [src]="originalPath+item.file_path"  class="img-fluid shadow rounded">
+
+
+      </div>
+
+  </ng-template>
+</swiper>
+  </div>
+
+  <div class="pt-5">
+    <h3>Movies</h3>
+    <swiper
+    [config]="config"
+  [slidesPerView]="3"
+  [spaceBetween]="30"
+  [navigation]="true"
+  class="py-5"
+>
+  <ng-template *ngFor="let item of details.movie_credits?.cast" swiperSlide>
+
+      <div class="credits">
+          <div class="position-relative h-100">
+            <div class="review "><i class="fas fa-star pe-1"></i><span class="fw-bold">{{item.vote_average}}</span></div>
+            <a [routerLink]="['/details','movie',item.id]">
+              <div class="poster ">
+                <img [src]="originalPath+item.poster_path" *ngIf="item.poster_path != null && item.poster_path != undefined" class="img-fluid shadow rounded h-100 ">
+                <img src="../../assets/images/not-avail.png" *ngIf="item.poster_path == null && item.poster_path == undefined"  class="w-100 shadow rounded">
+                <h4 class="py-2 text-center">{{item.title}}</h4>
+                <h6 class="py-2 text-center"><span class="fw-bold">Character :</span> {{item.character}}</h6>
+              </div>
+            </a>
+           </div>
+      </div>
+
+  </ng-template>
+</swiper>
+  </div>
+  <div class="pt-5">
+    <h3>TV</h3>
+    <swiper
+    [config]="config"
+  [slidesPerView]="3"
+  [spaceBetween]="30"
+  [navigation]="true"
+  class="py-5"
+>
+  <ng-template *ngFor="let item of details.tv_credits?.cast" swiperSlide>
+
+      <div class="credits">
+          <div class="position-relative h-100">
+            <div class="review "><i class="fas fa-star pe-1"></i><span class="fw-bold">{{item.vote_average}}</span></div>
+            <a [routerLink]="['/details','tv',item.id]">
+              <div class="poster ">
+                <img [src]="originalPath+item.poster_path" *ngIf="item.poster_path != null && item.poster_path != undefined" class="img-fluid shadow rounded h-100 ">
+                <img src="../../assets/images/not-avail.png" *ngIf="item.poster_path == null && item.poster_path == undefined"  class="w-100 shadow rounded">
+                <h4 class="py-2 text-center">{{item.name}}</h4>
+                <h6 class="py-2 text-center"><span class="fw-bold">Character :</span> {{item.character}}</h6>
+              </div>
+            </a>
+           </div>
+      </div>
+
+  </ng-template>
+</swiper>
+  </div>
+</div>
+
+<!-- Footer -->
+<ngx-spinner *ngIf="loading" bdColor = "rgba(0, 0, 0, 0.8)" size = "large" color = "#1159b9" type = "ball-scale-multiple" [fullScreen] = "true"><p style="color: white" > Loading... </p></ngx-spinner>
+
+<app-footer></app-footer>

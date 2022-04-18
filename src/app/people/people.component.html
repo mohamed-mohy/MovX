@@ -1,0 +1,30 @@
+<div class="container py-5">
+  <h2>People</h2>
+  <div class="row py-5 border-bottom">
+    <div class="col-lg-3 py-4 movie " *ngFor="let person of people.results">
+      <div class="position-relative h-100">
+      <a [routerLink]="['/details','person',person.id]">
+        <div class="poster ">
+          <img *ngIf="person.profile_path" [src]="originalPath+person.profile_path"  class="img-fluid shadow rounded h-100 ">
+          <img *ngIf="!person.profile_path" src="../../assets/images/not-avail.png"  class="img-fluid shadow rounded h-100 ">
+          <h4 class="py-2 text-center">{{person.name}}</h4>
+          <h5 class="text-center">{{person.known_for_department}}</h5>
+        </div>
+      </a>
+      </div>
+    </div>
+    <p-paginator [rows]="20" [totalRecords]="people.total_results" (onPageChange)="paginate($event)" ></p-paginator>
+
+  </div>
+
+
+<div>
+
+
+  <ngx-spinner *ngIf="loading" bdColor = "rgba(0, 0, 0, 0.8)" size = "large" color = "#1159b9" type = "ball-scale-multiple" [fullScreen] = "true"><p style="color: white" > Loading... </p></ngx-spinner>
+
+
+
+<app-footer></app-footer>
+
+</div>

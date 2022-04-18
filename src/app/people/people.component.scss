@@ -1,0 +1,25 @@
+
+@import '../../styles.scss';
+
+.movie{
+  img,h4{
+    transition: .5s;
+  }
+    &:hover .review
+    {
+      background-color: $secondColor;
+      opacity: 1;
+    }
+    &:hover .fa-star
+    {
+      color: rgb(228, 167, 0);
+    }
+    &:hover h4{
+      color: $secondColor !important;
+    }
+    &:hover img
+    {
+      box-shadow: 0 1rem 2rem rgba(2, 2, 2, 0.418)!important;
+  }
+
+}

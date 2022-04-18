@@ -1,0 +1,59 @@
+<div class="bg-transparent shadow">
+    <div class="container ">
+      <nav class="navbar navbar-expand-lg navbar-dark sticky-top ">
+
+        <div class="container-fluid align-items-center ">
+          <a class="navbar-brand" routerLink="">Mov<img src="../../assets/images/logo.svg" alt="MovX"></a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+              <form [formGroup]="search" (keyup)="getSearch(search)">
+                    <input class="form-control " *ngIf="isLogin" placeholder="Search .."  formControlName="searchInput" matInput
+                    [matAutocomplete]="auto" aria-label="Search">
+                    <mat-autocomplete #auto="matAutocomplete">
+                    <mat-option [routerLink]="['/details',result.media_type,result.id]"  *ngFor="let result of results"  [value]="result.title == null ? result.name : result.title">
+                    <img class="example-option-img pe-2" *ngIf="!result.profile_path &&result.poster_path != null" aria-hidden [src]="originalPath + result.poster_path" height="30">
+                    <img class="example-option-img pe-2" *ngIf="result.profile_path&&result.profile_path != null" aria-hidden [src]="originalPath + result.profile_path" height="30">
+                    <span>{{result.title == null ? result.name : result.title}}</span>
+                    </mat-option>
+                    </mat-autocomplete>
+              </form>
+              <li class="nav-item">
+                <a class="nav-link " *ngIf="isLogin" aria-current="page" routerLinkActive="active" routerLink="home">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" *ngIf="isLogin" routerLinkActive="active" routerLink="movies">Movies</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" *ngIf="isLogin" routerLinkActive="active" routerLink="tv">TV</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" *ngIf="isLogin" routerLinkActive="active" routerLink="people">People</a>
+              </li>
+            </ul>
+
+                <ul class="navbar-nav mb-2 mb-lg-0" style="white-space: nowrap;">
+                  <li class="d-flex align-items-center fw-bold" *ngIf="isLogin" >
+
+                    <a class="nav-link text-white" > {{" "+firstName+' '+lastName}} ,</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" *ngIf="!isLogin" routerLinkActive="active" routerLink="signUp">Sign Up</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" *ngIf="!isLogin" routerLinkActive="active" routerLink="signIn">Sign In </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" *ngIf="isLogin" (click)="logout()" routerLink="">Logout </a>
+                  </li>
+                </ul>
+          </div>
+        </div>
+      </nav>
+
+    </div>
+  </div>

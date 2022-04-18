@@ -1,0 +1,22 @@
+@import '../../styles.scss';
+
+.footer
+{
+  position: relative !important;
+
+
+  li{
+    padding: 0 10px;
+    &:hover i
+    {
+      color: $mainColor !important;
+    }
+  }
+  i{
+    font-size: 2rem;
+    color: #e1e1e1 !important;
+    transition: .5s;
+
+}
+
+}
